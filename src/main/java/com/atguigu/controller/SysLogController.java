@@ -11,10 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Controller
 @RequestMapping("/sysLog")
+@RolesAllowed("ADMIN")
 public class SysLogController {
 
     @Autowired

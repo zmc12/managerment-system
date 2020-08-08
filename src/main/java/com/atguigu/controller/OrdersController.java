@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/orders")
+@RolesAllowed({"ADMIN","USER"})
 public class OrdersController {
 
     @Autowired
@@ -45,6 +47,8 @@ public class OrdersController {
         orders.setOrderTime(new Date());
         orders.setPayType(1);
         orders.setOrderStatus(1);
+        orders.setPeopleCount(1);
+        orders.setOrderDesc("");
         ordersService.save(member,travller);
         ordersService.save1(orders);
         return "redirect:findAll";

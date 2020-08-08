@@ -12,16 +12,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequestMapping("/user")
+
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @RolesAllowed("ADMIN")
     @RequestMapping("/deleteRoleToUser")
     public String deleteRoleToUser(@RequestParam(name = "userId", required = true) Integer userId, @RequestParam(name = "ids", required = true) Integer[] roleIds){
         userService.deleteRoleToUser(userId, roleIds);
@@ -29,6 +33,7 @@ public class UserController {
     }
 
 
+    @RolesAllowed("ADMIN")
     @RequestMapping("/deleteUserByIdAndAllRole")
     public String deleteUserByIdAndAllRole(@RequestParam(name = "id",required = true)Integer id,Model model){
         Users user = userService.findById(id);
@@ -47,7 +52,7 @@ public class UserController {
     }
 
 
-
+    @RolesAllowed("ADMIN")
     @RequestMapping("/findUserByIdAndAllRole")
     public String findUserByIdAndAllRole(@RequestParam(name = "id",required = true)Integer id,Model model){
         Users user = userService.findById(id);
@@ -57,12 +62,14 @@ public class UserController {
         return "user-role-add";
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping("/delete")
     public String delete(@RequestParam()Integer id){
         userService.delete(id);
         return "redirect:findAll";
     }
 
+    @PermitAll
     @RequestMapping("/change")
     public String change(HttpServletRequest request,Model model){
         String username =  request.getParameter("username");
@@ -84,6 +91,7 @@ public class UserController {
         }
     }
 
+    @RolesAllowed("ADMIN")
     @RequestMapping("/findById")
     public String findById(Integer id,Model model){
        Users users= userService.findById(id);
@@ -98,7 +106,7 @@ public class UserController {
     }
 
 
-
+    @RolesAllowed("ADMIN")
     @RequestMapping("/findAll")
     public String findAll(@RequestParam(name="page",required = true,defaultValue = "1")Integer page, @RequestParam(name="size",required = true,defaultValue = "4") Integer size, Model model){
         PageHelper.startPage(page,size);
@@ -131,6 +139,7 @@ public class UserController {
 
 
 
+    @PermitAll
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request){
         request.getSession().removeAttribute("username");
@@ -139,7 +148,7 @@ public class UserController {
     }
 
 
-
+    @RolesAllowed("ADMIN")
     @RequestMapping("/add")
     public String add(){
 
@@ -149,6 +158,7 @@ public class UserController {
 
 
 
+    @PermitAll
     @RequestMapping(value = "/init")
     public String logout(){
 
@@ -156,12 +166,13 @@ public class UserController {
     }
 
 
-
+    @PermitAll
     @RequestMapping("/modify")
     public String modify(){
         return "modify";
     }
 
+    @PermitAll
     @RequestMapping(value = "/head")
     public String head(){
 

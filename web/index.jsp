@@ -2,6 +2,6 @@
          pageEncoding="UTF-8"%>
 <html>
 <body>
-<jsp:forward page="/user/init"></jsp:forward>
+<jsp:forward page="/jsp/login.jsp"></jsp:forward>
 </body>
 </html>

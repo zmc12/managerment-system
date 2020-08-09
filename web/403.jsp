@@ -13,6 +13,6 @@
 <body>
     <h1>权限不足</h1>
    <div><button type="button" class="btn bg-default"
-                onclick="history.back(-1);">返回</button></div>
+                onclick="location.href='${pageContext.request.contextPath}/user/head'">返回</button></div>
 </body>
 </html>
